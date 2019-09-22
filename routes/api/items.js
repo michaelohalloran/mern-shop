@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
 router.delete("/:id", (req, res) => {
 	Item.findByIdAndDelete(req.params.id)
 		.then((item) => res.status(204).json(`Deleted ${item}`))
-		.catch((err) => res.status(400).json(`Delete error: ${err}`));
+		.catch((err) => res.status(404).json(`Delete error: ${err}`));
 });
 
 module.exports = router;
