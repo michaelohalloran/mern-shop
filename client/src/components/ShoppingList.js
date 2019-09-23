@@ -3,32 +3,32 @@ import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import "./ShoppingList.css";
+import { connect } from "react-redux";
+import { getItems, deleteItem, addItem } from "../actions/itemActions";
 
 class ShoppingList extends Component {
-	state = {
-		items: [
-			{ id: uuid(), name: "Apples" },
-			{ id: uuid(), name: "Kiwis" },
-			{ id: uuid(), name: "Papayas" },
-			{ id: uuid(), name: "Mangos" }
-		]
-	};
+	componentDidMount() {
+		console.log(this.props);
+		this.props.getItems();
+	}
 
 	addItem = (e) => {
 		const name = prompt("New item: ");
-		const newItem = { id: uuid(), name };
-		this.setState({ items: [ ...this.state.items, newItem ] });
+		this.props.addItem(name);
+		// const newItem = { id: uuid(), name };
+		// this.setState({ items: [ ...this.props.item.items, newItem ] });
 	};
 
 	deleteItem = (id) => {
 		console.log(id);
-		const { items } = this.state;
-		const updatedItems = items.filter((item) => item.id !== id);
-		this.setState({ items: updatedItems });
+		const { items } = this.props.item;
+		// const updatedItems = items.filter((item) => item.id !== id);
+		// this.setState({ items: updatedItems });
+		this.props.deleteItem(id);
 	};
 
 	render() {
-		const itemList = this.state.items.map((item) => {
+		const itemList = this.props.item.items.map((item) => {
 			return (
 				<CSSTransition key={item.id} timeout={500} classNames="fade">
 					<ListGroupItem>
@@ -59,4 +59,10 @@ class ShoppingList extends Component {
 	}
 }
 
-export default ShoppingList;
+const mapStateToProps = (state) => {
+	return {
+		item: state.item
+	};
+};
+
+export default connect(mapStateToProps, { getItems, deleteItem, addItem })(ShoppingList);
