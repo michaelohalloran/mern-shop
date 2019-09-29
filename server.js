@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const { mongoURI: uri } = require("./config/keys");
 const itemRouter = require("./routes/api/items");
+const userRouter = require("./routes/api/users");
 
 app.use(express.json());
 
@@ -19,6 +20,7 @@ mongoose
 
 // ROUTES
 app.use("/api/items", itemRouter);
+app.use("/api/users", userRouter);
 
 const port = process.env.PORT || 5000;
 
