@@ -4,20 +4,13 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import "./ShoppingList.css";
 import { connect } from "react-redux";
-import { getItems, deleteItem, addItem } from "../actions/itemActions";
+import { getItems, deleteItem } from "../actions/itemActions";
 
 class ShoppingList extends Component {
 	componentDidMount() {
 		console.log(this.props);
 		this.props.getItems();
 	}
-
-	addItem = (e) => {
-		const name = prompt("New item: ");
-		this.props.addItem(name);
-		// const newItem = { id: uuid(), name };
-		// this.setState({ items: [ ...this.props.item.items, newItem ] });
-	};
 
 	deleteItem = (id) => {
 		console.log(id);
@@ -48,9 +41,6 @@ class ShoppingList extends Component {
 
 		return (
 			<Container>
-				<Button color="dark" style={{ marginBottom: "2rem" }} onClick={this.addItem}>
-					Add item
-				</Button>
 				<ListGroup>
 					<TransitionGroup>{itemList}</TransitionGroup>
 				</ListGroup>
@@ -65,4 +55,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { getItems, deleteItem, addItem })(ShoppingList);
+export default connect(mapStateToProps, { getItems, deleteItem })(ShoppingList);
