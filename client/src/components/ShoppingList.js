@@ -14,22 +14,19 @@ class ShoppingList extends Component {
 
 	deleteItem = (id) => {
 		console.log(id);
-		const { items } = this.props.item;
-		// const updatedItems = items.filter((item) => item.id !== id);
-		// this.setState({ items: updatedItems });
 		this.props.deleteItem(id);
 	};
 
 	render() {
 		const itemList = this.props.item.items.map((item) => {
 			return (
-				<CSSTransition key={item.id} timeout={500} classNames="fade">
+				<CSSTransition key={item._id} timeout={500} classNames="fade">
 					<ListGroupItem>
 						<Button
 							className="remove-btn"
 							color="danger"
 							size="sm"
-							onClick={() => this.deleteItem(item.id)}
+							onClick={() => this.deleteItem(item._id)}
 						>
 							&times;
 						</Button>

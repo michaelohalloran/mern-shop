@@ -10,7 +10,6 @@ class ItemModal extends Component {
 	};
 
 	toggle = () => {
-		console.log("Hit toggle");
 		this.setState({ modal: !this.state.modal });
 	};
 

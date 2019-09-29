@@ -15,11 +15,11 @@ router.get("/", (req, res) => {
 // @desc Post new item
 // @access PUBLIC
 router.post("/", (req, res) => {
-	const { name, date } = req.body;
+	const { name, date = Date.now() } = req.body;
 	const newItem = new Item({ name });
 	newItem
 		.save()
-		.then((data) => res.status(201).json(`Added item: ${data}`))
+		.then((data) => res.status(201).json(data))
 		.catch((err) => res.status(400).json({ err: `Error in creating item: ${err}` }));
 });
 
